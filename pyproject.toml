@@ -1,0 +1,20 @@
+[project]
+name = "ct-dino"
+requires-python = ">=3.10"
+version = "0.0.1"
+description = "Training DINO on CT images"
+authors = [
+  {name = "Daniel Ignatyev", email = "dania.ignat@yandex.ru"},
+]
+
+dependencies = [
+  "dinov2 @ git+https://github.com/xdoni4/dinov2@fcae66653a1c02b83dfe444d9b14a0dd85857997"
+]
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm.build]
+requires = ["torch==2.6.0"]
