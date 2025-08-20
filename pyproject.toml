@@ -8,7 +8,7 @@ authors = [
 ]
 
 dependencies = [
-  "dinov2 @ git+https://github.com/xdoni4/dinov2@fcae66653a1c02b83dfe444d9b14a0dd85857997"
+  "dinov2 @ git+https://github.com/xdoni4/dinov2@fb95208feec2365fc9be7184d49db952c6957824"
 ]
 
 [build-system]
