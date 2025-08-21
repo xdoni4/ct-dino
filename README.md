@@ -7,7 +7,7 @@ This repo is built on [dinov2](https://github.com/facebookresearch/dinov2) fork 
 ### Update submodule
 ```
 git submodule update --init --recursive
-cd dinov2 && git checkout 0f9593ab68f0646c3983f0c8cb75441242bbb7fa
+cd dinov2 && git checkout 5bc52d59fe9256258e3eb3a2b2d58e825388cf43
 ```
 ### Install dinov2 package
 ```
