@@ -39,13 +39,14 @@ def convert_weights_to_primus_m(pretrained_path):
         "PrimusM",
         input_channels=1,
         output_channels=2,
-        input_patchsize=(128, 128, 128),
+        input_patchsize=(160, 160, 160),
         allow_init=True,
         deep_supervision=False,
     )
     network = load_pretrained_checkpoint(pretrained_path)
 
     converted_params = []
+    use_cls = 1 if network.use_cls else 0
 
     for param_name, param in primus.down_projection.named_parameters():
         converted_params.append("down_projection." + param_name)
@@ -60,7 +61,12 @@ def convert_weights_to_primus_m(pretrained_path):
         primus.register_tokens.data = torch.clone(network.register_tokens.data)
         converted_params.append("register_tokens")
 
-    primus.eva.pos_embed.data = torch.clone(network.pos_embed[:, 1:].data)
+    if primus.eva.pos_embed.data.shape == network.pos_embed.data[:, use_cls:].shape:
+        print("y")
+        primus.eva.pos_embed.data = torch.clone(network.pos_embed.data[:, use_cls:])
+    else:
+        interpolated = network._interpolate_pos_encoding_3d(torch.zeros_like(primus.eva.pos_embed.data), 160, 160, 160)
+        primus.eva.pos_embed.data = torch.clone(interpolated[:, use_cls:])
     converted_params.append("eva.pos_embed")
 
     n_block_chunks = len(network.blocks)
@@ -168,7 +174,7 @@ if __name__ == "__main__":
     state_dict = primus.state_dict()
     final_state_dict = {"network_weights" : state_dict}
     final_state_dict['nnssl_adaptation_plan'] = serialized_adaptation_plan
-    final_state_dict['nnssl_adaptation_plan']['pretrain_plan']['configurations']
+    final_state_dict['nnssl_adaptation_plan']['pretrain_patch_size'] = (160, 160, 160)
 
     os.makedirs(Path(args.out).parent, exist_ok=True)
     torch.save(final_state_dict, args.out)
