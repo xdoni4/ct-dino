@@ -62,7 +62,6 @@ def convert_weights_to_primus_m(pretrained_path):
         converted_params.append("register_tokens")
 
     if primus.eva.pos_embed.data.shape == network.pos_embed.data[:, use_cls:].shape:
-        print("y")
         primus.eva.pos_embed.data = torch.clone(network.pos_embed.data[:, use_cls:])
     else:
         interpolated = network._interpolate_pos_encoding_3d(torch.zeros_like(primus.eva.pos_embed.data), 160, 160, 160)

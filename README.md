@@ -7,7 +7,7 @@ This repo is built on [dinov2](https://github.com/facebookresearch/dinov2) fork 
 ### Update submodule
 ```
 git submodule update --init --recursive
-cd dinov2 && git checkout 5bc52d59fe9256258e3eb3a2b2d58e825388cf43
+cd dinov2 && git checkout 47219105a5181fa4ebc81c1b892a8f0224b61f63
 ```
 ### Install dinov2 package
 ```
@@ -21,7 +21,7 @@ pdm install --no-isolation
 
 ### Openmind
 ```
-torchrun --nproc_per_node 8 --nnodes 1 --master-port 29373  dinov2/dinov2/train/train.py --config-file dinov2/dinov2/configs/train/vitm16_3d.yaml --output-dir /your/output/dir
+torchrun --nproc_per_node 8 --nnodes 1 --master-port 29373  dinov2/dinov2/train/train.py --config-file dinov2/dinov2/configs/train/vitm16_3d_openneuro.yaml --output-dir /your/output/dir
 ```
 
 #### Convert checkpoint to PrimusM
