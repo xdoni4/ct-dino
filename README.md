@@ -7,10 +7,10 @@ This repo is built on [dinov2](https://github.com/facebookresearch/dinov2) fork 
 ### Update submodule
 ```
 git submodule update --init --recursive
-cd dinov2 && git checkout b80d4d636639d9342712db5e94ccd9703d93a953
 ```
 ### Install dinov2 package
 ```
+cd dinov2
 conda create -n ct_dino python=3.10 -y && conda activate ct_dino
 conda install cuda=12.4 -c nvidia -y
 pip install pdm pdm-backend
